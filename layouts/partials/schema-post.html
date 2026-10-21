@@ -1,0 +1,13 @@
+{{- /* BlogPosting + optional FAQPage JSON-LD. FAQ comes from front matter: faq: [{q: "...", a: "..."}] */ -}}
+{{- $img := partial "imgurl.html" (dict "page" . "abs" true) -}}
+{{- $addr := dict "@type" "PostalAddress" "streetAddress" "534 S. Navy Blvd" "addressLocality" "Pensacola" "addressRegion" "FL" "postalCode" "32507" "addressCountry" "US" -}}
+{{- $pub := dict "@type" "Organization" "name" "Coastal Funding Corporation" "url" site.Params.mainsite "telephone" site.Params.phone "identifier" "NMLS 103035" "address" $addr -}}
+{{- $post := dict "@context" "https://schema.org" "@type" "BlogPosting" "headline" .Title "description" (.Description | default (.Summary | plainify)) "datePublished" (.Date.Format "2006-01-02T15:04:05-07:00") "dateModified" (.Lastmod.Format "2006-01-02T15:04:05-07:00") "author" (dict "@type" "Organization" "name" (default site.Params.brand .Params.author) "url" site.Params.mainsite) "publisher" $pub "mainEntityOfPage" .Permalink "url" .Permalink "inLanguage" "en-US" -}}
+{{- with $img -}}{{- $post = merge $post (dict "image" .) -}}{{- end -}}
+{{- with .Params.tags -}}{{- $post = merge $post (dict "keywords" (delimit . ", ")) -}}{{- end -}}
+<script type="application/ld+json">{{ $post | jsonify | safeJS }}</script>
+{{- with .Params.faq -}}
+{{- $qs := slice -}}
+{{- range . -}}{{- $qs = $qs | append (dict "@type" "Question" "name" .q "acceptedAnswer" (dict "@type" "Answer" "text" .a)) -}}{{- end -}}
+<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@type" "FAQPage" "mainEntity" $qs | jsonify | safeJS }}</script>
+{{- end -}}
