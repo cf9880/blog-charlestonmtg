@@ -37,3 +37,23 @@ Recommended: JPG or WebP, landscape 1200x630 or larger, under 500 KB, lowercase 
 1. GoDaddy DNS for charlestonmtg.com: add `CNAME` record, Name `blog`, Value `cf9880.github.io`, TTL 1 hour.
 2. In `hugo.toml` set `baseURL = "https://blog.charlestonmtg.com/"` and create `static/CNAME` containing `blog.charlestonmtg.com`.
 3. Repo Settings → Pages → Custom domain `blog.charlestonmtg.com`, then enable Enforce HTTPS.
+
+## FAQ block (optional, recommended for answer engines)
+Add a `faq` list to the front matter. Each item has `q` (question) and `a` (short, plain answer, 1-3 sentences). The site shows it as a "Frequently Asked Questions" section at the end of the post and adds FAQPage schema automatically. If the post body already has its own `## Frequently Asked Questions` heading, only the schema is added (no duplicate section). Leave `faq` out and nothing is shown.
+
+```yaml
+faq:
+  - q: "What credit score do I need for an FHA loan?"
+    a: "Many FHA lenders look for a 580 or higher score for 3.5% down. Requirements vary by lender."
+  - q: "How long does preapproval take?"
+    a: "Often 1-3 business days once your documents are in."
+```
+
+## Author
+Set `author:` to the exact `name` of a page in `content/authors/` so the byline links to that author page and the schema is correct. Current author names: `Coastal Funding Corporation — Charleston`. If `author` is missing, the byline falls back to the business name. To add a new author, copy a file in `content/authors/`, set `title` and `name`, and use only verified facts in the bio.
+
+```yaml
+author: "Coastal Funding Corporation — Charleston"
+```
+
+`static/llms.txt` summarizes this site for AI assistants. Update it if the business details change.
