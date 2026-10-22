@@ -8,6 +8,7 @@ enableRobotsTXT = true
 [sitemap]
   changefreq = "weekly"
 [params]
+logo = "images/logo.png"
   publisher = "Coastal Funding Corporation"
   description = "Charleston, SC mortgage and home buying insights: purchases, refinancing, FHA, VA, USDA and HELOC."
   brand = "Coastal Funding Corporation — Charleston"
